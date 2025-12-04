@@ -20,6 +20,9 @@ build/
 .env.local
 .env.*.local
 
+# Movement Engineer local exports
+movement-snapshots/
+
 # Logs
 *.log
 npm-debug.log*

@@ -8,6 +8,7 @@ Proposed | Accepted | Deprecated | Superseded by [ADR-YYYY-descriptive-slug]
 2-3 paragraphs explaining:
 - The situation requiring a decision
 - Forces at play
+- Any Movement Engineer terminology constraints
 - Constraints
 - Reference RFCs if applicable
 
