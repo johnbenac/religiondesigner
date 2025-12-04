@@ -910,65 +910,69 @@
 
   // Optional: sample dataset roughly matching sample-data.js
   function loadSampleSnapshot() {
-    const sample = {
-      religions: [
-        {
-          id: 'rel-test',
-          name: 'Test Faith',
-          shortName: 'TF',
-          summary: 'A tiny test religion.',
-          notes: null,
-          tags: ['test']
-        }
-      ],
-      textCollections: [],
-      texts: [],
-      entities: [
-        {
-          id: 'ent-god',
-          religionId: 'rel-test',
-          name: 'Test God',
-          kind: 'being',
-          summary: 'The primary deity of Test Faith.',
-          notes: null,
-          tags: ['deity'],
-          sourcesOfTruth: ['tradition'],
-          sourceEntityIds: []
-        }
-      ],
-      practices: [
-        {
-          id: 'pr-weekly',
-          religionId: 'rel-test',
-          name: 'Weekly Gathering',
-          kind: 'ritual',
-          description: 'People meet once a week.',
-          frequency: 'weekly',
-          isPublic: true,
-          notes: null,
-          tags: ['weekly', 'gathering'],
-          involvedEntityIds: ['ent-god'],
-          instructionsTextIds: [],
-          supportingClaimIds: [],
-          sourcesOfTruth: ['tradition'],
-          sourceEntityIds: []
-        }
-      ],
-      events: [],
-      rules: [],
-      claims: [],
-      media: [],
-      notes: [],
-      relations: []
-    };
+    const sample =
+      (typeof window !== 'undefined' && window.sampleData) ||
+      {
+        religions: [
+          {
+            id: 'rel-test',
+            name: 'Test Faith',
+            shortName: 'TF',
+            summary: 'A tiny test religion.',
+            notes: null,
+            tags: ['test']
+          }
+        ],
+        textCollections: [],
+        texts: [],
+        entities: [
+          {
+            id: 'ent-god',
+            religionId: 'rel-test',
+            name: 'Test God',
+            kind: 'being',
+            summary: 'The primary deity of Test Faith.',
+            notes: null,
+            tags: ['deity'],
+            sourcesOfTruth: ['tradition'],
+            sourceEntityIds: []
+          }
+        ],
+        practices: [
+          {
+            id: 'pr-weekly',
+            religionId: 'rel-test',
+            name: 'Weekly Gathering',
+            kind: 'ritual',
+            description: 'People meet once a week.',
+            frequency: 'weekly',
+            isPublic: true,
+            notes: null,
+            tags: ['weekly', 'gathering'],
+            involvedEntityIds: ['ent-god'],
+            instructionsTextIds: [],
+            supportingClaimIds: [],
+            sourcesOfTruth: ['tradition'],
+            sourceEntityIds: []
+          }
+        ],
+        events: [],
+        rules: [],
+        claims: [],
+        media: [],
+        notes: [],
+        relations: []
+      };
 
+    const name = sample.religions?.[0]?.name || 'the sample dataset';
     const confirmReset = window.confirm(
-      'Replace the current snapshot with the Test Faith sample? This will overwrite all current data.'
+      `Replace the current snapshot with ${name}? This will overwrite all current data.`
     );
     if (!confirmReset) return;
 
-    snapshot = ensureAllCollections(sample);
-    currentReligionId = 'rel-test';
+    // Clone to avoid mutating the global sample reference
+    snapshot = ensureAllCollections(JSON.parse(JSON.stringify(sample)));
+    currentReligionId = snapshot.religions[0] ? snapshot.religions[0].id : null;
     currentItemId = null;
     saveSnapshot();
     setStatus('Loaded sample');
