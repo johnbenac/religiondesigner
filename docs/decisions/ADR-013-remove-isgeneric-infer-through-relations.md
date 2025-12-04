@@ -18,6 +18,7 @@ Removing `isGeneric` simplifies the schema and eliminates a confusing field that
 ## Consequences
 
 ### Positive
+- Keeps Movement Engineer terminology consistent by leaning on relation-driven semantics instead of legacy flags.
 - Eliminates ambiguity and reduces errors in determining whether an entity is generic.
 - Encourages explicit modelling of type–instance relationships via `Relation` records.
 - Keeps the `Entity` schema minimal and reduces boolean clutter.
